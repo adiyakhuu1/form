@@ -9,6 +9,7 @@ import { number } from "zod";
 
 export default function Home() {
   const [current, setCurrent] = useState(1);
+  const [pageOneInfo, takePageOneInfo] = useState("");
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [username, setUsername] = useState("");
@@ -27,21 +28,17 @@ export default function Home() {
   //     return <PageDone setCurrent={setCurrent} />;
   //   }
   // };
-  useEffect(() => {
-    if (
-      firstname.includes(number) ||
-      lastname.includes(number) ||
-      username.includes(number)
-    ) {
-      setError(true);
-    }
-  }, [error]);
+  // useEffect(() => {
+
+  // }, [error, firstname]);
   return (
     <>
       {/* <CurrentPage setCurrent={setCurrent} /> */}
 
       {current === 1 ? (
         <PageOne
+          takePageOneInfo={takePageOneInfo}
+          pageOneInfo={pageOneInfo}
           error={error}
           setError={setError}
           setCurrent={setCurrent}
