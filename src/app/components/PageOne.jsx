@@ -13,6 +13,7 @@ export default function PageOne({
   form,
   setForm,
   onChange,
+  error1,
 }) {
   // let red;
   // useEffect(() => {
@@ -30,7 +31,8 @@ export default function PageOne({
   // };
   return (
     <div
-      className={`w-[480px] h-[655px] relative bg-white m-auto mt-20 ${inter.className}`}>
+      className={`w-[480px] h-[655px] relative bg-white m-auto mt-20 ${inter.className}`}
+    >
       <div className="w-[416px] h-[385px] absolute top-8 left-8 right-8 ">
         <div className="pb-2">
           <img src="./img/pinecone-logo.svg" />
@@ -40,7 +42,8 @@ export default function PageOne({
           </p>
         </div>
         <form>
-          <div className="my-3">
+          {error1 && <p className="text-red-500 ">Бүх талбарыг бөглөнө үү!</p>}
+          <div className="my-4">
             <label htmlFor="name" className="text-[14px] ">
               Овог
               {error ? (
@@ -69,9 +72,9 @@ export default function PageOne({
               placeholder="Your surname"
               type="text"
             />
-            {error && <p className="text-red-500">Тоо оруулж болохгүй!</p>}
+            {error && <p className="text-red-500 ">Тоо оруулж болохгүй!</p>}
           </div>
-          <div className="my-3">
+          <div className="my-4">
             <label htmlFor="name" className="text-[14px]">
               Нэр
               {error ? (
@@ -99,7 +102,7 @@ export default function PageOne({
             />
             {error && <p className="text-red-500">Тоо оруулж болохгүй!</p>}
           </div>
-          <div className="my-3">
+          <div className="my-4">
             <label htmlFor="name" className="text-[14px]">
               Хэрэглэгчийн нэр
               {error ? (
@@ -129,14 +132,15 @@ export default function PageOne({
           </div>
         </form>
       </div>
-      {error ? (
+      {error || error1 ? (
         <button
           disabled
           onClick={() => {
             setCurrent(2);
           }}
           className="w-[416px] h-11 cursor-not-allowed bg-gray-400 text-white rounded-sm  absolute bottom-8 right-8 left-8"
-          type="submit">
+          type="submit"
+        >
           Continue 1/3
         </button>
       ) : (
@@ -145,7 +149,8 @@ export default function PageOne({
             setCurrent(2);
           }}
           className="w-[416px] h-11 bg-black text-white rounded-sm  absolute bottom-8 right-8 left-8"
-          type="submit">
+          type="submit"
+        >
           Continue 1/3
         </button>
       )}

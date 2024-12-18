@@ -15,6 +15,7 @@ export default function Home() {
   // const [lastname, setLastname] = useState("");
   // const [username, setUsername] = useState("");
   const [error, setError] = useState(false);
+  const [error1, setError1] = useState(false);
   // useEffect(() => {
   //   console.log(current);
   // });
@@ -29,38 +30,41 @@ export default function Home() {
   //     return <PageDone setCurrent={setCurrent} />;
   //   }
   // };
-  // useEffect(() => {
 
   // }, [error, firstname]);
 
   const onChange = (e) => {
     const field = e.target.id;
+    const value = e.target.value;
     const newValues = { ...form, [field]: e.target.value };
-
+    setForm(newValues);
     console.log(newValues);
 
-    checkNumber(field, newValues);
+    checkNumber(field, value);
   };
-  const checkNumber = (field, newValues) => {
+  const checkNumber = (field, value) => {
     if (field === "firstname" || field === "lastname") {
       if (
-        form[field]?.includes("1") ||
-        form[field]?.includes("2") ||
-        form[field]?.includes("3") ||
-        form[field]?.includes("4") ||
-        form[field]?.includes("5") ||
-        form[field]?.includes("6") ||
-        form[field]?.includes("7") ||
-        form[field]?.includes("8") ||
-        form[field]?.includes("9") ||
-        form[field]?.includes("0")
+        value?.includes("1") ||
+        value?.includes("2") ||
+        value?.includes("3") ||
+        value?.includes("4") ||
+        value?.includes("5") ||
+        value?.includes("6") ||
+        value?.includes("7") ||
+        value?.includes("8") ||
+        value?.includes("9") ||
+        value?.includes("0")
       ) {
         setError(true);
-        setForm(newValues);
       } else {
         setError(false);
-        setForm(newValues);
       }
+    }
+    if (value?.length === 0) {
+      setError1(true);
+    } else {
+      setError1(false);
     }
   };
 
@@ -72,6 +76,7 @@ export default function Home() {
         <PageOne
           onChange={onChange}
           form={form}
+          error1={error1}
           setForm={setForm}
           // takePageOneInfo={takePageOneInfo}
           // pageOneInfo={pageOneInfo}
