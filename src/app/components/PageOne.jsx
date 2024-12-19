@@ -3,6 +3,8 @@ import * as React from "react";
 import { useEffect } from "react";
 
 import { Inter } from "next/font/google";
+import { isValid } from "zod";
+import { validate } from "../utils/validate";
 const inter = Inter({ subsets: ["latin"] });
 export default function PageOne({
   setCurrent,
@@ -14,6 +16,9 @@ export default function PageOne({
   setForm,
   onChange,
   error1,
+  setErrors,
+  errors,
+  current,
 }) {
   // let red;
   // useEffect(() => {
@@ -25,14 +30,14 @@ export default function PageOne({
   // }, [error]);
   const regularStyle = `w-[416px] h-11 border-[1px] rounded-lg p-2 border-gray-300`;
   const warningStyle = `w-[416px] h-11 border-[1px] rounded-lg p-2 border-red-500`;
+  const { isValid, newErrors } = validate(form, current);
 
   // const checkNumbers = (pageOneInfo) => {
 
   // };
   return (
     <div
-      className={`w-[480px] h-[655px] relative bg-white m-auto mt-20 ${inter.className}`}
-    >
+      className={`w-[480px] h-[655px] relative bg-white m-auto mt-20 ${inter.className}`}>
       <div className="w-[416px] h-[385px] absolute top-8 left-8 right-8 ">
         <div className="pb-2">
           <img src="./img/pinecone-logo.svg" />
@@ -42,11 +47,13 @@ export default function PageOne({
           </p>
         </div>
         <form>
-          {error1 && <p className="text-red-500 ">Бүх талбарыг бөглөнө үү!</p>}
+          {!isValid && (
+            <p className="text-red-500 ">Бүх талбарыг бөглөнө үү!</p>
+          )}
           <div className="my-4">
             <label htmlFor="name" className="text-[14px] ">
               Овог
-              {error ? (
+              {isValid ? (
                 <span className="text-red-500"> *</span>
               ) : (
                 <span className="text-black"> *</span>
@@ -68,16 +75,17 @@ export default function PageOne({
               // onKeyDown={(e) => {
               //   // console.log(e.target.value);
               // }}
-              className={error ? warningStyle : regularStyle}
+              className={!errors.lastname ? regularStyle : warningStyle}
               placeholder="Your surname"
               type="text"
             />
-            {error && <p className="text-red-500 ">Тоо оруулж болохгүй!</p>}
+            <p className="text-red-500 ">{errors.lastname}</p>
+            {/* {isValid && <p className="text-red-500 ">Too aguulj bolohgu</p>} */}
           </div>
           <div className="my-4">
             <label htmlFor="name" className="text-[14px]">
               Нэр
-              {error ? (
+              {isValid ? (
                 <span className="text-red-500"> *</span>
               ) : (
                 <span className="text-black"> *</span>
@@ -97,15 +105,16 @@ export default function PageOne({
                 onChange(e);
                 // checkNumbers(e);
               }}
-              className={error ? warningStyle : regularStyle}
+              className={!errors.firstname ? regularStyle : warningStyle}
               placeholder="Your name"
             />
-            {error && <p className="text-red-500">Тоо оруулж болохгүй!</p>}
+            <p className="text-red-500 ">{errors.firstname}</p>
+            {/* {isValid && <p className="text-red-500 ">Too aguulj bolohgu</p>} */}
           </div>
           <div className="my-4">
             <label htmlFor="name" className="text-[14px]">
               Хэрэглэгчийн нэр
-              {error ? (
+              {isValid ? (
                 <span className="text-red-500"> *</span>
               ) : (
                 <span className="text-black"> *</span>
@@ -125,35 +134,47 @@ export default function PageOne({
                 onChange(e);
                 // checkNumbers(e);
               }}
-              className={error ? warningStyle : regularStyle}
+              className={!errors.username ? regularStyle : warningStyle}
               placeholder="Your username"
             />
-            {/* {error && <p className="text-red-500">Тоо оруулж болохгүй!</p>} */}
+            <p className="text-red-500 ">{errors.username}</p>
           </div>
         </form>
       </div>
-      {error || error1 ? (
+
+      <button
+        onClick={() => {
+          // const { isValid, newErrors } = validate(form);
+          if (isValid) {
+            setCurrent(2);
+          } else {
+            setErrors(newErrors);
+          }
+        }}
+        className={`w-[416px] h-11 ${
+          isValid ? `bg-black` : `bg-gray-400 cursor-not-allowed`
+        }  text-white rounded-sm absolute bottom-8 right-8 left-8`}
+        type="submit">
+        Continue 1/3
+      </button>
+
+      {/* {isValid ? (
         <button
-          disabled
           onClick={() => {
             setCurrent(2);
           }}
-          className="w-[416px] h-11 cursor-not-allowed bg-gray-400 text-white rounded-sm  absolute bottom-8 right-8 left-8"
-          type="submit"
-        >
+          className="w-[416px] h-11 bg-black text-white rounded-sm absolute bottom-8 right-8 left-8"
+          type="submit">
           Continue 1/3
         </button>
       ) : (
         <button
-          onClick={() => {
-            setCurrent(2);
-          }}
-          className="w-[416px] h-11 bg-black text-white rounded-sm  absolute bottom-8 right-8 left-8"
-          type="submit"
-        >
+          disabled
+          className="w-[416px] h-11 cursor-not-allowed bg-gray-400 text-white rounded-sm absolute bottom-8 right-8 left-8"
+          type="submit">
           Continue 1/3
         </button>
-      )}
+      )} */}
     </div>
   );
 }

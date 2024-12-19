@@ -2,13 +2,27 @@
 import * as React from "react";
 
 import { Inter } from "next/font/google";
+import { validate } from "../utils/validate";
 const inter = Inter({ subsets: ["latin"] });
-export default function PageTwo({ setCurrent, onChange }) {
+export default function PageTwo({
+  setCurrent,
+  onChange,
+  errorEmail,
+  setErrorEmail,
+  error1,
+  setErrorNumber,
+  errorNumber,
+  form,
+  current,
+  errors,
+  setErrors,
+}) {
   const regularStyle = `w-[416px] h-11 border-[1px] rounded-lg p-2 border-gray-300`;
+  const warningStyle = `w-[416px] h-11 border-[1px] rounded-lg p-2 border-red-500`;
+  const { isValid, newErrors } = validate(form, current);
   return (
     <div
-      className={`w-[480px] h-[655px] relative bg-white m-auto mt-20 ${inter.className}`}
-    >
+      className={`w-[480px] h-[655px] relative bg-white m-auto mt-20 ${inter.className}`}>
       <div className="w-[416px] h-[385px] absolute top-8 left-8 right-8">
         <div className="pb-2">
           <img src="./img/pinecone-logo.svg" />
@@ -18,6 +32,9 @@ export default function PageTwo({ setCurrent, onChange }) {
           </p>
         </div>
         <form>
+          {!isValid && (
+            <p className="text-red-500 ">Бүх талбарыг бөглөнө үү!</p>
+          )}
           <div className="my-3">
             <label htmlFor="email" className="text-[14px]">
               Email
@@ -27,10 +44,11 @@ export default function PageTwo({ setCurrent, onChange }) {
               required
               onChange={onChange}
               id="email"
-              className={regularStyle}
+              className={!errors.email ? warningStyle : regularStyle}
               placeholder="baldangiin email"
               type="email"
             />
+            <p className="text-red-500">{errors.email}</p>
           </div>
           <div className="my-3">
             <label htmlFor="name" className="text-[14px]">
@@ -41,10 +59,11 @@ export default function PageTwo({ setCurrent, onChange }) {
               required
               onChange={onChange}
               id="tel"
-              className={regularStyle}
+              className={!errors.tel ? warningStyle : regularStyle}
               placeholder="baldangiin utasnii dugaar"
               type="tel"
             />
+            <p className="text-red-500">{errors.tel}</p>
           </div>
           <div className="my-3">
             <label htmlFor="name" className="text-[14px]">
@@ -54,7 +73,7 @@ export default function PageTwo({ setCurrent, onChange }) {
             <input
               required
               onChange={onChange}
-              id="password"
+              id="password1"
               className={regularStyle}
               placeholder="baldangiin password"
               type="password"
@@ -68,7 +87,7 @@ export default function PageTwo({ setCurrent, onChange }) {
             <input
               required
               onChange={onChange}
-              id="confirm-password"
+              id="password2"
               className={regularStyle}
               placeholder="baldangiin password"
               type="password"
@@ -82,17 +101,22 @@ export default function PageTwo({ setCurrent, onChange }) {
             setCurrent(1);
           }}
           className="w-[128px] h-11 text-black rounded-sm border-[1px] border-gray-300 absolute bottom-8 left-8 "
-          type="submit"
-        >
+          type="submit">
           Back
         </button>
+
         <button
           onClick={() => {
-            setCurrent(3);
+            if (isValid) {
+              setCurrent(3);
+            } else {
+              setErrors(newErrors);
+            }
           }}
-          className="w-[280px] h-11 bg-black text-white rounded-sm  absolute bottom-8 right-8 "
-          type="submit"
-        >
+          className={`w-[280px] h-11 ${
+            isValid ? `bg-black` : `bg-gray-400 cursor-not-allowed`
+          }  text-white rounded-sm absolute bottom-8 right-8 `}
+          type="submit">
           Continue 2/3
         </button>
       </div>

@@ -5,17 +5,31 @@ import PageOne from "./components/PageOne";
 import PageTwo from "./components/PageTwo";
 import PageThree from "./components/PageThree";
 import PageDone from "./components/Done";
-import { number } from "zod";
 
 export default function Home() {
   const [current, setCurrent] = useState(1);
-  // const [pageOneInfo, takePageOneInfo] = useState("");
-  const [form, setForm] = useState({});
-  // const [firstname, setFirstname] = useState("");
-  // const [lastname, setLastname] = useState("");
-  // const [username, setUsername] = useState("");
+  const [form, setForm] = useState({
+    firstname: "",
+    lastname: "",
+    username: "",
+    email: "",
+    tel: "",
+    password1: "",
+    password2: "",
+  });
+  const [errors, setErrors] = useState({
+    firstname: "",
+    lastname: "",
+    username: "",
+    email: "",
+    tel: "",
+    password1: "",
+    password2: "",
+  });
   const [error, setError] = useState(false);
   const [error1, setError1] = useState(false);
+  const [errorEmail, setErrorEmail] = useState(false);
+  const [errorNumber, setErrorNumber] = useState(false);
   // useEffect(() => {
   //   console.log(current);
   // });
@@ -36,37 +50,32 @@ export default function Home() {
   const onChange = (e) => {
     const field = e.target.id;
     const value = e.target.value;
-    const newValues = { ...form, [field]: e.target.value };
+    const newValues = { ...form, [field]: value };
     setForm(newValues);
     console.log(newValues);
 
-    checkNumber(field, value);
+    // checkNumber(field, value);
   };
-  const checkNumber = (field, value) => {
-    if (field === "firstname" || field === "lastname") {
-      if (
-        value?.includes("1") ||
-        value?.includes("2") ||
-        value?.includes("3") ||
-        value?.includes("4") ||
-        value?.includes("5") ||
-        value?.includes("6") ||
-        value?.includes("7") ||
-        value?.includes("8") ||
-        value?.includes("9") ||
-        value?.includes("0")
-      ) {
-        setError(true);
-      } else {
-        setError(false);
-      }
-    }
-    if (value?.length === 0) {
-      setError1(true);
-    } else {
-      setError1(false);
-    }
-  };
+  // const checkNumber = (field, value) => {
+  //   if (field === "firstname" || field === "lastname") {
+  //     if (
+  //       value?.includes("1") ||
+  //       value?.includes("2") ||
+  //       value?.includes("3") ||
+  //       value?.includes("4") ||
+  //       value?.includes("5") ||
+  //       value?.includes("6") ||
+  //       value?.includes("7") ||
+  //       value?.includes("8") ||
+  //       value?.includes("9") ||
+  //       value?.includes("0")
+  //     ) {
+  //       setError(true);
+  //     } else {
+  //       setError(false);
+  //     }
+  //   }
+  // };
 
   return (
     <>
@@ -83,6 +92,9 @@ export default function Home() {
           error={error}
           setError={setError}
           setCurrent={setCurrent}
+          setErrors={setErrors}
+          errors={errors}
+          current={current}
           // firstname={firstname}
           // setFirstname={setFirstname}
           // lastname={lastname}
@@ -91,7 +103,19 @@ export default function Home() {
           // setUsername={setUsername}
         />
       ) : current === 2 ? (
-        <PageTwo setCurrent={setCurrent} onChange={onChange} />
+        <PageTwo
+          setCurrent={setCurrent}
+          current={current}
+          onChange={onChange}
+          errorEmail={errorEmail}
+          setErrorEmail={setErrorEmail}
+          error1={error1}
+          errorNumber={errorNumber}
+          setErrorNumber={setErrorNumber}
+          form={form}
+          errors={errors}
+          setErrors={setErrors}
+        />
       ) : current === 3 ? (
         <PageThree setCurrent={setCurrent} onChange={onChange} />
       ) : (
