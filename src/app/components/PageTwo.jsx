@@ -22,7 +22,8 @@ export default function PageTwo({
   const { isValid, newErrors } = validate(form, current);
   return (
     <div
-      className={`w-[480px] h-[655px] relative bg-white m-auto mt-20 ${inter.className}`}>
+      className={`w-[480px] h-[655px] relative bg-white m-auto mt-20 ${inter.className}`}
+    >
       <div className="w-[416px] h-[385px] absolute top-8 left-8 right-8">
         <div className="pb-2">
           <img src="./img/pinecone-logo.svg" />
@@ -44,7 +45,7 @@ export default function PageTwo({
               required
               onChange={onChange}
               id="email"
-              className={!errors.email ? warningStyle : regularStyle}
+              className={errors.email ? warningStyle : regularStyle}
               placeholder="baldangiin email"
               type="email"
             />
@@ -59,9 +60,9 @@ export default function PageTwo({
               required
               onChange={onChange}
               id="tel"
-              className={!errors.tel ? warningStyle : regularStyle}
+              className={errors.tel ? warningStyle : regularStyle}
               placeholder="baldangiin utasnii dugaar"
-              type="tel"
+              type="text"
             />
             <p className="text-red-500">{errors.tel}</p>
           </div>
@@ -74,10 +75,11 @@ export default function PageTwo({
               required
               onChange={onChange}
               id="password1"
-              className={regularStyle}
+              className={errors.password1 ? warningStyle : regularStyle}
               placeholder="baldangiin password"
               type="password"
             />
+            <p className="text-red-500">{errors.password1}</p>
           </div>
           <div className="my-3">
             <label htmlFor="name" className="text-[14px]">
@@ -88,10 +90,11 @@ export default function PageTwo({
               required
               onChange={onChange}
               id="password2"
-              className={regularStyle}
+              className={errors.password2 ? warningStyle : regularStyle}
               placeholder="baldangiin password"
               type="password"
             />
+            <p className="text-red-500">{errors.password2}</p>
           </div>
         </form>
       </div>
@@ -101,7 +104,8 @@ export default function PageTwo({
             setCurrent(1);
           }}
           className="w-[128px] h-11 text-black rounded-sm border-[1px] border-gray-300 absolute bottom-8 left-8 "
-          type="submit">
+          type="submit"
+        >
           Back
         </button>
 
@@ -116,7 +120,8 @@ export default function PageTwo({
           className={`w-[280px] h-11 ${
             isValid ? `bg-black` : `bg-gray-400 cursor-not-allowed`
           }  text-white rounded-sm absolute bottom-8 right-8 `}
-          type="submit">
+          type="submit"
+        >
           Continue 2/3
         </button>
       </div>

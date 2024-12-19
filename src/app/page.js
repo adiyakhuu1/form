@@ -8,6 +8,7 @@ import PageDone from "./components/Done";
 
 export default function Home() {
   const [current, setCurrent] = useState(1);
+  const [image, setImage] = useState(null);
   const [form, setForm] = useState({
     firstname: "",
     lastname: "",
@@ -16,6 +17,8 @@ export default function Home() {
     tel: "",
     password1: "",
     password2: "",
+    birthdate: "",
+    pfp: "",
   });
   const [errors, setErrors] = useState({
     firstname: "",
@@ -25,6 +28,8 @@ export default function Home() {
     tel: "",
     password1: "",
     password2: "",
+    birthdate: "",
+    pfp: "",
   });
   const [error, setError] = useState(false);
   const [error1, setError1] = useState(false);
@@ -117,7 +122,17 @@ export default function Home() {
           setErrors={setErrors}
         />
       ) : current === 3 ? (
-        <PageThree setCurrent={setCurrent} onChange={onChange} />
+        <PageThree
+          setCurrent={setCurrent}
+          onChange={onChange}
+          form={form}
+          current={current}
+          errors={errors}
+          setErrors={setErrors}
+          setForm={setForm}
+          image={image}
+          setImage={setImage}
+        />
       ) : (
         <PageDone setCurrent={setCurrent} onChange={onChange} />
       )}

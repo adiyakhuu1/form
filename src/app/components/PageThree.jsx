@@ -2,9 +2,21 @@
 import * as React from "react";
 
 import { Inter } from "next/font/google";
+import { validate } from "../utils/validate";
 const inter = Inter({ subsets: ["latin"] });
-export default function PageThree({ setCurrent, onChange }) {
+export default function PageThree({
+  setCurrent,
+  onChange,
+  form,
+  current,
+  errors,
+  image,
+  setImage,
+  setErrors,
+}) {
   const regularStyle = `w-[416px] h-11 border-[1px] rounded-lg p-2 border-gray-300`;
+  const warningStyle = `w-[416px] h-11 border-[1px] rounded-lg p-2 border-red-500`;
+  const { isValid, newErrors } = validate(form, current);
   return (
     <div
       className={`w-[480px] h-[655px] relative bg-white m-auto mt-20 ${inter.className}`}
@@ -18,31 +30,60 @@ export default function PageThree({ setCurrent, onChange }) {
           </p>
         </div>
         <form>
+          {!isValid && (
+            <p className="text-red-500 ">Бүх талбарыг бөглөнө үү!</p>
+          )}
           <div className="my-3">
             <label htmlFor="email" className="text-[14px]">
               Date of birth
             </label>
             <br />
             <input
-              id="birth-date"
+              id="birthdate"
               onChange={onChange}
-              className={regularStyle}
-              placeholder="baldangiin email"
+              className={errors.birthdate ? warningStyle : regularStyle}
+              placeholder="baldangiin torson odor"
               type="date"
             />
+            <p className="text-red-500">{errors.birthdate}</p>
           </div>
           <div className="my-3">
             <label htmlFor="email" className="text-[14px]">
               Profile Image
             </label>
             <br />
-            <input
-              id="pfp"
-              onChange={onChange}
-              className={regularStyle}
-              placeholder="baldangiin email"
-              type="file"
-            />
+            {image ? (
+              <div className="">
+                <button
+                  onClick={() => {
+                    setImage(null);
+                  }}
+                >
+                  clear
+                </button>
+                <img src={image} className="h-64" />
+              </div>
+            ) : (
+              <input
+                id="pfp"
+                onChange={(e) => {
+                  const file = e.target.files[0];
+                  const url = URL.createObjectURL(file);
+
+                  const fileEvent = {
+                    target: { value: file, id: e.target.id },
+                  };
+                  onChange(fileEvent);
+                  console.log(url);
+                  setImage(url);
+                }}
+                className={errors.birthdate ? warningStyle : regularStyle}
+                placeholder="baldangiin pfp"
+                type="file"
+              />
+            )}
+
+            <p className="text-red-500">{errors.pfp}</p>
           </div>
         </form>
       </div>
@@ -59,9 +100,15 @@ export default function PageThree({ setCurrent, onChange }) {
         </button>
         <button
           onClick={() => {
-            setCurrent(4);
+            if (isValid) {
+              setCurrent(4);
+            } else {
+              setErrors(newErrors);
+            }
           }}
-          className="w-[280px] h-11 bg-black text-white rounded-sm  absolute bottom-8 right-8 "
+          className={`w-[280px] h-11 ${
+            isValid ? `bg-black` : `bg-gray-400 cursor-not-allowed`
+          }  text-white rounded-sm absolute bottom-8 right-8 `}
           type="submit"
         >
           Continue 3/3
