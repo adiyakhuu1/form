@@ -117,10 +117,11 @@ export const validate = (form, current) => {
       isValid = false;
       newErrors.birthdate = "torson odroo oruulna uu!";
     }
+    if (!form.pfp) {
+      isValid = false;
+      newErrors.pfp = "zurag oruulna uu!";
+    }
   }
-  if (!form.pfp) {
-    isValid = false;
-    newErrors.pfp = "zurag oruulna uu!";
-  }
+
   return { isValid, newErrors };
 };
