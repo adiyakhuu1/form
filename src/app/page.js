@@ -7,7 +7,7 @@ import PageThree from "./components/PageThree";
 import PageDone from "./components/Done";
 
 export default function Home() {
-  const [current, setCurrent] = useState(3);
+  const [current, setCurrent] = useState(1);
   const [image, setImage] = useState(null);
   const [form, setForm] = useState({
     firstname: "",
