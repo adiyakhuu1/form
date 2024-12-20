@@ -31,6 +31,9 @@ export default function PageOne({
   const regularStyle = `w-[416px] h-11 border-[1px] rounded-lg p-2 border-gray-300`;
   const warningStyle = `w-[416px] h-11 border-[1px] rounded-lg p-2 border-red-500`;
   const { isValid, newErrors } = validate(form, current);
+  useEffect(() => {
+    setErrors(newErrors);
+  }, [form]);
 
   // const checkNumbers = (pageOneInfo) => {
 
@@ -50,7 +53,7 @@ export default function PageOne({
           {!isValid && (
             <p className="text-red-500 ">Бүх талбарыг бөглөнө үү!</p>
           )}
-          <div className="my-4">
+          <div className="my-2">
             <label htmlFor="name" className="text-[14px] ">
               Овог
               {isValid ? (
@@ -82,7 +85,7 @@ export default function PageOne({
             <p className="text-red-500 ">{errors.lastname}</p>
             {/* {isValid && <p className="text-red-500 ">Too aguulj bolohgu</p>} */}
           </div>
-          <div className="my-4">
+          <div className="my-2">
             <label htmlFor="name" className="text-[14px]">
               Нэр
               {isValid ? (
@@ -111,7 +114,7 @@ export default function PageOne({
             <p className="text-red-500 ">{errors.firstname}</p>
             {/* {isValid && <p className="text-red-500 ">Too aguulj bolohgu</p>} */}
           </div>
-          <div className="my-4">
+          <div className="my-2">
             <label htmlFor="name" className="text-[14px]">
               Хэрэглэгчийн нэр
               {isValid ? (

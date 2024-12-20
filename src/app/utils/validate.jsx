@@ -14,6 +14,9 @@ export const validate = (form, current) => {
   // 1st page validate
   // firstname
   if (current === 1) {
+    // let validateFirstname =
+    //   /^[a-zA-Z0-9._-] + @ + [a-zA-Z] + \. + [a-zA-Z]{2,}/;
+
     if (!form.firstname) {
       isValid = false;
       newErrors.firstname = "Utga oruulna uu!";
@@ -21,18 +24,7 @@ export const validate = (form, current) => {
       isValid = false;
       newErrors.firstname = "dor hayj 3 usegtei ner oruulna uu!";
     }
-    if (
-      form.firstname.includes("1") ||
-      form.firstname.includes("2") ||
-      form.firstname.includes("3") ||
-      form.firstname.includes("4") ||
-      form.firstname.includes("5") ||
-      form.firstname.includes("6") ||
-      form.firstname.includes("7") ||
-      form.firstname.includes("8") ||
-      form.firstname.includes("9") ||
-      form.firstname.includes("0")
-    ) {
+    if (/\d/.test(form.firstname)) {
       isValid = false;
       newErrors.firstname = "too oruulj bolohgu!";
     }
@@ -44,18 +36,7 @@ export const validate = (form, current) => {
       isValid = false;
       newErrors.lastname = "dor hayj 3 usegtei ner oruulna uu!";
     }
-    if (
-      form.lastname.includes("1") ||
-      form.lastname.includes("2") ||
-      form.lastname.includes("3") ||
-      form.lastname.includes("4") ||
-      form.lastname.includes("5") ||
-      form.lastname.includes("6") ||
-      form.lastname.includes("7") ||
-      form.lastname.includes("8") ||
-      form.lastname.includes("9") ||
-      form.lastname.includes("0")
-    ) {
+    if (/\d/.test(form.lastname)) {
       isValid = false;
       newErrors.lastname = "too oruulj bolohgu!";
     }
@@ -70,6 +51,7 @@ export const validate = (form, current) => {
   }
   // 2nd page validate
   if (current === 2) {
+    let checkEmail = /^[a-zA-Z0-9.-_]+@[a-zA-Z]+\.[a-zA-Z]{2,}$/;
     // email
     if (!form.email) {
       isValid = false;
@@ -77,17 +59,25 @@ export const validate = (form, current) => {
     } else if (!form.email.includes("@")) {
       isValid = false;
       newErrors.email = "where is @ dummy?";
+    } else if (!checkEmail.test(form.email)) {
+      isValid = false;
+      newErrors.email = "zov mail oruulna uu?";
     }
-    // phone number
     if (form.tel) {
-      const nums = `ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz`;
-      for (let i = 0; i < nums.length; i++) {
-        if (form.tel.includes(nums[i])) {
-          isValid = false;
-          newErrors.tel = "Useg aguulj bolohgui!";
-        }
+      // phone number
+      let checkLetters = /[a-zA-Z]/;
+      // let counts = /{,8}/;
+      // for (let i = 0; i < nums.length; i++) {
+      //   if (form.tel.includes(nums[i])) {
+      //     isValid = false;
+      //     newErrors.tel = "Useg aguulj bolohgui!";
+      //   }
+      // }
+      if (checkLetters.test(form.tel)) {
+        isValid = false;
+        newErrors.tel = "Useg aguulj bolohgui!";
       }
-      if (form.tel.length <= 8) {
+      if (form.tel.length < 8) {
         isValid = false;
         newErrors.tel = "Utasnii dugaar dor hayj 8n orontoi bh ystoi";
       }

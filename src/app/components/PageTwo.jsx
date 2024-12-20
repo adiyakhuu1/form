@@ -1,5 +1,6 @@
 "use client";
 import * as React from "react";
+import { useEffect } from "react";
 
 import { Inter } from "next/font/google";
 import { validate } from "../utils/validate";
@@ -20,10 +21,12 @@ export default function PageTwo({
   const regularStyle = `w-[416px] h-11 border-[1px] rounded-lg p-2 border-gray-300`;
   const warningStyle = `w-[416px] h-11 border-[1px] rounded-lg p-2 border-red-500`;
   const { isValid, newErrors } = validate(form, current);
+  useEffect(() => {
+    setErrors(newErrors);
+  }, [form]);
   return (
     <div
-      className={`w-[480px] h-[655px] relative bg-white m-auto mt-20 ${inter.className}`}
-    >
+      className={`w-[480px] h-[655px] relative bg-white m-auto mt-20 ${inter.className}`}>
       <div className="w-[416px] h-[385px] absolute top-8 left-8 right-8">
         <div className="pb-2">
           <img src="./img/pinecone-logo.svg" />
@@ -36,7 +39,7 @@ export default function PageTwo({
           {!isValid && (
             <p className="text-red-500 ">Бүх талбарыг бөглөнө үү!</p>
           )}
-          <div className="my-3">
+          <div className="my-2">
             <label htmlFor="email" className="text-[14px]">
               Email
             </label>
@@ -51,7 +54,7 @@ export default function PageTwo({
             />
             <p className="text-red-500">{errors.email}</p>
           </div>
-          <div className="my-3">
+          <div className="my-2">
             <label htmlFor="name" className="text-[14px]">
               Phone number
             </label>
@@ -66,7 +69,7 @@ export default function PageTwo({
             />
             <p className="text-red-500">{errors.tel}</p>
           </div>
-          <div className="my-3">
+          <div className="my-2">
             <label htmlFor="name" className="text-[14px]">
               Password
             </label>
@@ -81,7 +84,7 @@ export default function PageTwo({
             />
             <p className="text-red-500">{errors.password1}</p>
           </div>
-          <div className="my-3">
+          <div className="my-2">
             <label htmlFor="name" className="text-[14px]">
               Confirm password
             </label>
@@ -104,8 +107,7 @@ export default function PageTwo({
             setCurrent(1);
           }}
           className="w-[128px] h-11 text-black rounded-sm border-[1px] border-gray-300 absolute bottom-8 left-8 "
-          type="submit"
-        >
+          type="submit">
           Back
         </button>
 
@@ -120,8 +122,7 @@ export default function PageTwo({
           className={`w-[280px] h-11 ${
             isValid ? `bg-black` : `bg-gray-400 cursor-not-allowed`
           }  text-white rounded-sm absolute bottom-8 right-8 `}
-          type="submit"
-        >
+          type="submit">
           Continue 2/3
         </button>
       </div>
