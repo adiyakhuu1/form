@@ -51,6 +51,9 @@ export default function Home() {
   // };
 
   // }, [error, firstname]);
+  useEffect(() => {
+    document.title = "Register Page";
+  }, []);
 
   const onChange = (e) => {
     const field = e.target.id;
