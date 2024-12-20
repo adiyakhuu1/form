@@ -42,6 +42,8 @@ export default function PageThree({
             </label>
             <br />
             <input
+              min="1950-01-01"
+              max="2018-12-31"
               id="birthdate"
               onChange={onChange}
               className={errors.birthdate ? warningStyle : regularStyle}
