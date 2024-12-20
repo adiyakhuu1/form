@@ -51,7 +51,7 @@ export default function PageOne({
         </div>
         <form>
           {!isValid && (
-            <p className="text-red-500 ">Бүх талбарыг бөглөнө үү!</p>
+            <p className="text-red-500 ">Бүх талбарыг алдаагүй бөглөнө үү!</p>
           )}
           <div className="my-2">
             <label htmlFor="name" className="text-[14px] ">
