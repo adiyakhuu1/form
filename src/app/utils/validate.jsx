@@ -88,7 +88,7 @@ export const validate = (form, current) => {
     }
     if (!form.tel) {
       isValid = false;
-      newErrors.tel = "Утасны дугаар оруулна уу!";
+      // newErrors.tel = "Утасны дугаар оруулна уу!";
     }
     // password
     if (form.password1 || form.password2) {
@@ -109,11 +109,11 @@ export const validate = (form, current) => {
   if (current === 3) {
     if (!form.birthdate) {
       isValid = false;
-      newErrors.birthdate = "Төрсөн өдрөө оруулна уу!";
+      // newErrors.birthdate = "Төрсөн өдрөө оруулна уу!";
     }
     if (!form.pfp) {
       isValid = false;
-      newErrors.pfp = "Хавтасны зураг оруулна уу!";
+      // newErrors.pfp = "Хавтасны зураг оруулна уу!";
     }
   }
 
