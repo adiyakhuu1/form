@@ -13,6 +13,7 @@ export const validate = (form, current) => {
   };
   // 1st page validate
   // firstname
+  if (!form) form - {};
   if (current === 1) {
     // let validateFirstname =
     //   /^[a-zA-Z0-9._-] + @ + [a-zA-Z] + \. + [a-zA-Z]{2,}/;
@@ -22,7 +23,7 @@ export const validate = (form, current) => {
 
     if (!form.firstname) {
       isValid = false;
-      newErrors.firstname = "Утга оруулна уу!";
+      // newErrors.firstname = "Утга оруулна уу!";
     } else if (checkFirstname.test(form.firstname)) {
       isValid = false;
       newErrors.firstname = "Дор хаяж 3 н үсэг оруулна уу!";
@@ -34,7 +35,7 @@ export const validate = (form, current) => {
     // lastname
     if (!form.lastname) {
       isValid = false;
-      newErrors.lastname = "Утга оруулна уу!";
+      // newErrors.lastname = "Утга оруулна уу!";
     } else if (checkLastname.test(form.lastname)) {
       isValid = false;
       newErrors.lastname = "Дор хаяж 3 -н үсэг оруулна уу!";
@@ -46,7 +47,7 @@ export const validate = (form, current) => {
     // username
     if (!form.username) {
       isValid = false;
-      newErrors.username = "Утга оруулна уу!";
+      // newErrors.username = "Утга оруулна уу!";
     } else if (checkUsername.test(form.username)) {
       isValid = false;
       newErrors.username = "Дор хаяж 4 -н үсэг оруулна уу!";
@@ -101,8 +102,8 @@ export const validate = (form, current) => {
       }
     } else {
       isValid = false;
-      newErrors.password1 = "Утга оруулна уу!";
-      newErrors.password2 = "Утга оруулна уу!";
+      // newErrors.password1 = "Утга оруулна уу!";
+      // newErrors.password2 = "Утга оруулна уу!";
     }
   }
   if (current === 3) {
