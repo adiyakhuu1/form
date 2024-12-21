@@ -59,13 +59,13 @@ export const validate = (form, current) => {
     // email
     if (!form.email) {
       isValid = false;
-      newErrors.email = "Email -ээ оруулна уу!";
+      // newErrors.email = "Email -ээ оруулна уу!";
     } else if (!form.email.includes("@")) {
       isValid = false;
       newErrors.email = "where is @ dummy?";
     } else if (!checkEmail.test(form.email)) {
       isValid = false;
-      newErrors.email = "Зөв майл оруулна уу?";
+      newErrors.email = "Зөв майл оруулна уу!";
     }
     if (form.tel) {
       // phone number

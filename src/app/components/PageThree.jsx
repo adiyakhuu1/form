@@ -14,6 +14,7 @@ export default function PageThree({
   image,
   setImage,
   setErrors,
+  setForm
 }) {
   const regularStyle = `w-[416px] h-11 border-[1px] rounded-lg p-2 border-gray-300`;
   const warningStyle = `w-[416px] h-11 border-[1px] rounded-lg p-2 border-red-500`;
@@ -61,6 +62,7 @@ export default function PageThree({
                 className="absolute bottom-41 right-5"
                 onClick={() => {
                   setImage(null);
+
                 }}>
                 clear
               </button>

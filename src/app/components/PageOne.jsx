@@ -33,7 +33,7 @@ export default function PageOne({
   const { isValid, newErrors } = validate(form, current);
   useEffect(() => {
     setErrors(newErrors);
-  }, [form]);
+  }, [form, current]);
 
   // const checkNumbers = (pageOneInfo) => {
 
